@@ -9,4 +9,9 @@ import { User } from './user';
 export class AppComponent {
   title = 'formsYT';
   userModel = new User('', '', '', '', '');
+
+  onSubmit() {
+    console.log(this.userModel);
+  }
+
 }

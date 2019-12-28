@@ -1,7 +1,7 @@
 <div id="responsive-field" class="class container-fluid">
   <img align="center" id="responsive-image" src="assets/EMCbanner.png" alt="EVERY MINUTE COUNTS">
   <h1 align="center" style="font-weight: bolder;">Tournament Sign-Up</h1>
-  <form id="yellow-label" #userForm="ngForm">
+  <form id="yellow-label" #userForm="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="class form-group">
       <label for="">First Name</label>
@@ -40,8 +40,11 @@
 
     <div class="class form-group">
       <label for="">Confirm Password</label>
-      <input type="password" required #confirmPassword="ngModel" [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched" class="class form-control" name="confirmPassword" [(ngModel)]="userModel.confirmPassword">
-      <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">Please confirm your password</small>
+      <input type="password" required #confirmPassword="ngModel" pattern="{{ password.value }}" [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched" class="class form-control" name="confirmPassword" [(ngModel)]="userModel.confirmPassword">
+      <div class="text-danger" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+        <small *ngIf="confirmPassword.errors.required">Please confirm your password</small>
+        <small *ngIf="confirmPassword.errors.pattern">Does not match your password</small>
+    </div>
     </div>
 
     <button [disabled]="userForm.form.invalid" class="btn btn-primary" type="submit">Submit</button>
