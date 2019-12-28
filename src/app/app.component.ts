@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from './user';
+import { SignUpService } from "./sign-up.service";
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,20 @@ import { User } from './user';
 export class AppComponent {
   title = 'formsYT';
   userModel = new User('', '', '', '', '');
+  submitted = false;
+  errorMsg= '';
+
+  constructor(private _signUpService: SignUpService) {
+
+  }
 
   onSubmit() {
-    console.log(this.userModel);
+    this.submitted = true;
+    this._signUpService.signUp(this.userModel)
+    .subscribe(
+      data => console.log('Success!', data),
+      error => this.errorMsg = error.statusText      
+      )
   }
 
 }

@@ -1,7 +1,14 @@
 <div id="responsive-field" class="class container-fluid">
   <img align="center" id="responsive-image" src="assets/EMCbanner.png" alt="EVERY MINUTE COUNTS">
   <h1 align="center" style="font-weight: bolder;">Tournament Sign-Up</h1>
-  <form id="yellow-label" #userForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="alert alert-danger" *ngIf="errorMsg">
+    {{errorMsg}}
+  </div>
+  <div id="thank-you" *ngIf="submitted && !errorMsg">
+    Thank you for your submission!<br>
+    Please check your email for verification.
+  </div>
+  <form id="yellow-label" *ngIf="!submitted" #userForm="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="class form-group">
       <label for="">First Name</label>
